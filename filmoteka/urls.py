@@ -14,14 +14,15 @@ from django.conf.urls.static import static
 
 # Mapování URL adres webu -propojení URL s jejich obsluhou
 urlpatterns = [
-# URL "admin/" je namapováno na administrační rozhraní webu
-path('admin/', admin.site.urls),
-# URL "movies/" je namapováno na aplikaci movies a její vlastní soubor 'movies.urls'
-path('movies/', include('movies.urls')),
-# domovská stránka webu ('') je automaticky přesměrována na url z předešlého řádku ('movies')
-path('', RedirectView.as_view(url='movies/')),] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-# Metodou static() zajistíme správné mapování adres statických souborů webu (css, js, obrázků atd.).
-# Jejich umístění bude definováno konstantami STATIC_URL a STATIC_ROOT v souboru settings.py
+    # URL "admin/" je namapováno na administrační rozhraní webu
+    path('admin/', admin.site.urls),
+    # URL "movies/" je namapováno na aplikaci movies a její vlastní soubor 'movies.urls'
+    path('movies/', include('movies.urls')),
+    # domovská stránka webu ('') je automaticky přesměrována na url z předešlého řádku ('movies')
+    path('', RedirectView.as_view(url='movies/')),] +  static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# Metodou static() zajistíme správné mapování adres statických soub
+    # Metodou static() zajistíme správné mapování adres statických souborů webu (css, js, obrázků atd.).
+    # Jejich umístění bude definováno konstantami STATIC_URL a STATIC_ROOT v souboru settings.py
 
 """filmoteka URL Configuration
 
@@ -38,8 +39,6 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
